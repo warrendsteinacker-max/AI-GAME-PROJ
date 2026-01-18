@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LandingPage from './components/LandingPage';
+import PlanetMap from './components/PlanetMap';
+import Cockpit from './components/Cockpit';
 
+/**
+ * App Routing Configuration
+ * - /         : Landing Page to select Duration (10-40m) and Theme.
+ * - /map      : Tactical deployment and drawing interface].
+ * - /cockpit  : First-person 3D view of the Centrifugal Frontier.
+ */
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="app-container">
+        <Routes>
+          {/* Entry point for theme and time selection] */}
+          <Route path="/" element={<LandingPage />} />
+          
+          {/* Tactical map for planet placement and AI dilemmas] */}
+          <Route path="/map" element={<PlanetMap />} />
+          
+          {/* 3D Visualizer for the orbital physics] */}
+          <Route path="/cockpit" element={<Cockpit />} />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;
