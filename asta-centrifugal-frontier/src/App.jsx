@@ -1,8 +1,8 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LandingPage from './components/LandingPage';
-import PlanetMap from './components/PlanetMap';
-import Cockpit from './components/Cockpit';
+// import React from 'react';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import LandingPage from './components/LandingPage';
+// import PlanetMap from './components/PlanetMap';
+// import Cockpit from './components/Cockpit';
 
 /**
  * App Routing Configuration
@@ -12,20 +12,20 @@ import Cockpit from './components/Cockpit';
  */
 function App() {
   return (
-    <Router>
-      <div className="app-container">
-        <Routes>
-          {/* Entry point for theme and time selection] */}
-          <Route path="/" element={<LandingPage />} />
+    // <Router>
+    //   <div className="app-container">
+    //     <Routes>
+    //       {/* Entry point for theme and time selection] */}
+    //       <Route path="/" element={<LandingPage />} />
           
-          {/* Tactical map for planet placement and AI dilemmas] */}
-          <Route path="/map" element={<PlanetMap />} />
+    //       {/* Tactical map for planet placement and AI dilemmas] */}
+    //       <Route path="/map" element={<PlanetMap />} />
           
-          {/* 3D Visualizer for the orbital physics] */}
-          <Route path="/cockpit" element={<Cockpit />} />
-        </Routes>
-      </div>
-    </Router>
+    //       {/* 3D Visualizer for the orbital physics] */}
+    //       <Route path="/cockpit" element={<Cockpit />} />
+    //     </Routes>
+    //   </div>
+    // </Router>
   );
 }
 
