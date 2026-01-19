@@ -20,11 +20,12 @@ export const Comp = () => {
     };
 
     return(<>
-    <header><p>hello</p></header>
+    {/* // <header><p>hello</p></header>
 
-    <form onSubmit={ptoB}><input type='text' value={data} placeholder="data" onChange={(e) => setData(e.target.value)}></input><button type='submit'>post data</button></form>
+    // <form onSubmit={ptoB}><input type='text' value={data} placeholder="data" onChange={(e) => setData(e.target.value)}></input><button type='submit'>post data</button></form>
 
-    <footer>by</footer>
+    // <footer>by</footer> */}
+    <div id="boxxx"></div>
     </>);
 };
 
