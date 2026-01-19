@@ -88,6 +88,8 @@ const LandingPage = () => {
 // --- STYLING (Inline for Vite flexibility) ---
 const containerStyle = { height: '100vh', width: '100vw', background: '#000', color: '#0ff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: 'Orbitron, sans-serif', overflow: 'hidden', position: 'relative' };
 const scanlineOverlay = { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06))', backgroundSize: '100% 4px, 3px 100%', pointerEvents: 'none', zIndex: 10 };
+const headerStyle = { textAlign: 'center', marginBottom: '20px' };
+const mainContent = { display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 20 };
 const titleStyle = { fontSize: '5rem', margin: 0, letterSpacing: '20px', textShadow: '0 0 20px #0ff' };
 const subtitleStyle = { fontSize: '1.2rem', letterSpacing: '5px', color: '#0aa', marginBottom: '40px' };
 const configSection = { background: 'rgba(0, 20, 20, 0.5)', padding: '20px', borderRadius: '5px', border: '1px solid #055', marginBottom: '20px', width: '450px', textAlign: 'center' };
