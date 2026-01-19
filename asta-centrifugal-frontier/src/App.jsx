@@ -30,7 +30,7 @@ function App() {
   
   <Router>
     <Routes>
-    <Route to='/' element={<Comp/>}/>
+    <Route path='/' element={<Comp/>}/>
     </Routes>
   </Router>
   

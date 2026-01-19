@@ -5,13 +5,13 @@ export const Comp = () => {
 
     const [data, setData] = useState('')
 
-    const ptoB = (e) => {
+    const ptoB = async(e) => {
         e.preventDefault()
         try{
-            const d = axios.post('http://localhost/8000', {data: data});
+            const d = await axios.post('http://localhost:8000', {data: data});
             const res = d.data;
-            if(res.status === 200){
-                setData(res);
+            if(d.status === 200){
+                setData(res.data);
             };
         }
         catch(error){
@@ -22,7 +22,7 @@ export const Comp = () => {
     return(<>
     <header><p>hello</p></header>
 
-    <form onSubmit={ptoB}><input type='text' value={data} placeholder="data" onChange={(e) => e.target.value}></input><button type='submit'>post data</button></form>
+    <form onSubmit={ptoB}><input type='text' value={data} placeholder="data" onChange={(e) => setData(e.target.value)}></input><button type='submit'>post data</button></form>
 
     <footer>by</footer>
     </>);
