@@ -121,12 +121,17 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
+import { router } from '../routes'
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5173', 'http://localhost:5176']
+}));
 app.use(express.json());
+
+app.use(router)
 
 const API_KEY = process.env.GEMINI_API_KEY || "AIzaSyCwIV9sjQzFexvJ4FZ7YUL7H4WB677rPMg";
 const ai = new GoogleGenAI({ apiKey: API_KEY });
