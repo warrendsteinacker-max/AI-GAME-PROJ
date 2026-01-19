@@ -29,4 +29,5 @@ export const Comp = () => {
     </>);
 };
 
-GGGGG
+
+console.log('git sucks')
