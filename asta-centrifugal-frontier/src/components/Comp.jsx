@@ -29,4 +29,4 @@ export const Comp = () => {
     </>);
 };
 
-console.log('hello')
+console.log('hi')
