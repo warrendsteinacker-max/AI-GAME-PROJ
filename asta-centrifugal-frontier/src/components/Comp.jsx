@@ -25,7 +25,7 @@ export const Comp = () => {
     // <form onSubmit={ptoB}><input type='text' value={data} placeholder="data" onChange={(e) => setData(e.target.value)}></input><button type='submit'>post data</button></form>
 
     // <footer>by</footer> */}
-    <div style={{backgroundImage: 'url(/earth_day.jpg)', height: '100vh', width: '100wh'}}></div>
+    <div style={{backgroundRepeat: 'no-repeat', backgroundImage: 'url(/earth_day.jpg)', height: '100vh', width: '100wh', backgroundPosition: 'center'}}></div>
     </>);
 };
 
