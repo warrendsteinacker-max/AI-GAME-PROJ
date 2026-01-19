@@ -24,3 +24,7 @@ canvas {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+.boxxx{
+  background-image: url(/earth_day.jpg);
+}
