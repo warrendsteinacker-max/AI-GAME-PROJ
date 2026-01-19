@@ -151,6 +151,8 @@ const parseAIResponse = (text) => {
 /**
  * 1. GENERATE SCENARIO
  */
+
+
 app.post('/api/generate-scenario', async (req, res) => {
     const { theme, civHealth, planetData, gameDuration } = req.body;
     

@@ -8,7 +8,7 @@ export const Comp = () => {
     const ptoB = async(e) => {
         e.preventDefault()
         try{
-            const d = await axios.post('http://localhost:8000', {data: data});
+            const d = await axios.post('http://localhost:8000/pp', {data: data});
             const res = d.data;
             if(d.status === 200){
                 setData(res.data);
