@@ -1,4 +1,4 @@
-/* Global Game Styles */
+Global Game Styles
 body, html, #root {
   margin: 0;
   padding: 0;
@@ -11,19 +11,19 @@ body, html, #root {
 }
 
 /* Custom Cursor for the Tactical Map */
-canvas {
+/* canvas {
   display: block;
-}
+} */
 
 /* Animations for AI Scenarios */
-.fade-in {
+/* .fade-in {
   animation: fadeIn 0.5s ease-in;
-}
+} */
 
-@keyframes fadeIn {
+/* @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
-}
+} */
 
 .boxxx{
   background-image: url(/earth_day.jpg);
