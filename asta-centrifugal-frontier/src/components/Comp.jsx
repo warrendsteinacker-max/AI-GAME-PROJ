@@ -1,7 +1,7 @@
 import axios from "axios"
 import {useState} from 'react' 
 
-const Comp = () => {
+export const Comp = () => {
 
     const [data, setData] = useState('')
 
@@ -28,4 +28,3 @@ const Comp = () => {
     </>);
 };
 
-export default Comp

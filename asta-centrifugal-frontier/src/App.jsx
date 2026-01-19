@@ -1,5 +1,6 @@
 // import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {Comp} from './components/Comp';
 // import LandingPage from './components/LandingPage';
 // import PlanetMap from './components/PlanetMap';
 // import Cockpit from './components/Cockpit';
@@ -28,7 +29,9 @@ function App() {
     // </Router>
   
   <Router>
-    <Route to='/' element={</>}/>
+    <Routes>
+    <Route to='/' element={<Comp/>}/>
+    </Routes>
   </Router>
   
   );
