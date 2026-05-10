@@ -3,7 +3,11 @@ import { useState } from 'react'
 function App() {
   const [token, setToken] = useState(localStorage.getItem('userToken'))
   const [postContent, setPostContent] = useState('')
-  const [error, setE] = useState(true)
+  const [error, setE] = useState(false)
+  const [pass, setP] = useState("")
+  const [user, setU] = useState("")
+  const testpas = "password123"
+  const testuser = "testuser"
 
   // --- Inline Styles Object ---
   const styles = {
@@ -62,9 +66,14 @@ function App() {
   }
 
   const handleLogin = () => {
-    const mockToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-    localStorage.setItem('userToken', mockToken)
-    setToken(mockToken)
+    
+    if(user === testuser && pass === testpas) {
+      const mockToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      localStorage.setItem('userToken', mockToken)
+      setToken(mockToken)
+    } else {
+      setE(true)
+    }
   }
 
   const handleLogout = () => {
@@ -80,8 +89,8 @@ function App() {
         /* LOGIN VIEW */
         <div style={styles.glassCard}>
           <h2 style={{ textAlign: 'center', margin: 0 }}>Login</h2>
-          <input type="text" placeholder="Username" style={styles.input} />
-          <input type="password" placeholder="Password" style={styles.input} />
+          <input type="text" placeholder="Username" value={user} onChange={(e) => setU(e.target.value)} style={styles.input} />
+          <input type="password" placeholder="Password" value={pass} onChange={(e) => setP(e.target.value)} style={styles.input} />
           <button onClick={handleLogin} style={styles.button}>Sign In</button>
         </div>
       ) : (
