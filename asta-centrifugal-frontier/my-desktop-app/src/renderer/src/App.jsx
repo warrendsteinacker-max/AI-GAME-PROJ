@@ -3,9 +3,24 @@ import { useState } from 'react'
 function App() {
   const [token, setToken] = useState(localStorage.getItem('userToken'))
   const [postContent, setPostContent] = useState('')
+  const [error, setE] = useState(true)
 
   // --- Inline Styles Object ---
   const styles = {
+    message: {
+      position: 'absolute',
+      top: '20px',
+      left: '20px',
+      fontFamily: 'sans-serif',
+      color: 'red',
+      background: 'rgba(255, 255, 255, 0.1)', // Transparent white
+      backdropFilter: 'blur(1px)',           // Frosted glass effect
+      border: '1px solid rgba(255, 255, 255, 0.3)',
+      padding: '50px',
+      width: '200px',
+      boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+      borderRadius: '12px'
+    },
     container: {
       height: '100vh',
       display: 'flex',
@@ -16,7 +31,7 @@ function App() {
     },
     glassCard: {
       background: 'rgba(255, 255, 255, 0.1)', // Transparent white
-      backdropFilter: 'blur(12px)',           // Frosted glass effect
+      backdropFilter: 'blur(1px)',           // Frosted glass effect
       border: '1px solid rgba(255, 255, 255, 0.3)',
       borderRadius: '24px',                   // Smooth rounded corners
       padding: '40px',
@@ -58,7 +73,9 @@ function App() {
   }
 
   return (
+
     <div style={styles.container}>
+      {error && <div style={styles.message}>Login failed. Please try again.</div>}
       {!token ? (
         /* LOGIN VIEW */
         <div style={styles.glassCard}>
