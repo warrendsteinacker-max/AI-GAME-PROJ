@@ -71,6 +71,7 @@ function App() {
       const mockToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
       localStorage.setItem('userToken', mockToken)
       setToken(mockToken)
+      setE(false)
     } else {
       setE(true)
     }
