@@ -1,3 +1,81 @@
+////////Qs?
+
+why are there these env vats in the files dont have these sont mamke sense expalin and if I needed to add these env vars tell mechanics
+
+and what is the C:\Users\User\DESK-TOP-APP\asta-centrifugal-frontier\my-desktop-app\src\renderer path is this were this app would defalt to run the front end code for comp app and if so why the f did I not just put the front here
+
+if I want to config the app to show up on home screen first install or open do I need to modive anything and ere for a configered comp app like this
+
+what is the deal with the asta-centrifugal-frontier/my-desktop-app/electron-builder.yml
+
+
+tell me how to set up a basic comp appp how to start it up npm create it from somthing and get this configuring and what shoulf the basic file struct look like for a fiest set up comp app like this
+
+
+
+
+
+{
+  "name": "my-desktop-app",
+  "version": "1.0.0",
+  "description": "An Electron application with React",
+  "main": "./out/main/index.js",
+  "author": "example.com",
+  "homepage": "https://electron-vite.org",
+  "scripts": {
+    "gen-certs": "node -e \"const {execSync}=require('child_process'); const ip=require('os').networkInterfaces(); console.log('Run openssl manually with your IP from ipconfig')\"",
+    "format": "prettier --write .",
+    "lint": "eslint --cache .",
+    "start": "electron-vite preview",
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "postinstall": "electron-builder install-app-deps",
+    "build:unpack": "npm run build && electron-builder --dir",
+    "build:win": "npm run build && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --win",
+    "build:mac": "npm run build && electron-builder --mac",
+    "build:linux": "npm run build && electron-builder --linux"
+  },
+  "dependencies": {
+    "@electron-toolkit/preload": "^3.0.2",
+    "@electron-toolkit/utils": "^4.0.0",
+    "cors": "^2.8.6",
+    "electron-updater": "^6.3.9",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@electron-toolkit/eslint-config": "^2.1.0",
+    "@electron-toolkit/eslint-config-prettier": "^3.0.0",
+    "@vitejs/plugin-react": "^5.1.1",
+    "cross-env": "^10.1.0",
+    "electron": "^39.2.6",
+    "electron-builder": "^26.0.12",
+    "electron-vite": "^5.0.0",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "prettier": "^3.7.4",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "vite": "^7.2.6"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 note this did not work
 
 

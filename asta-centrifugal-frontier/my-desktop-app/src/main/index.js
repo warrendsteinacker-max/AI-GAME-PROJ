@@ -19,7 +19,7 @@ function initializeAutomation() {
 
   // Start HTTPS barcode/inventory server (port 3000)
   try {
-    runningInventoryServer = startInventoryServer();
+    runningInventoryServer = startInventoryServer(app.isPackaged ? process.resourcesPath : null);
     console.log("HTTPS inventory server active on port 3000.");
   } catch(e) {
     console.error("Inventory server failed:", e);
