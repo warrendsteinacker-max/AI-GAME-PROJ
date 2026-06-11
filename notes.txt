@@ -1,3 +1,32 @@
+  got the desktop app kind of working 
+
+
+
+
+////////next prompt for cluad
+
+
+so I got this is this good and how do I get the app do open whrn I do this and show the ui do I just go to the url with wifi ip in browser or on phone and how do I get the ui to go to to start this whole process show up loke a pwa on the home scrreen kind of and when you click on it it configs every thing and then starts up server in back would I go to this dir to create that front end for the comp app this is the front end di r=r dir I am talking about  the render one in img would I need to config the js files in img
+
+asta-centrifugal-frontier/my-desktop-app/src/renderer
+
+
+asta-centrifugal-frontier/my-desktop-app/electron.vite.config.mjs
+
+
+asta-centrifugal-frontier/my-desktop-app/electron.vite.config.mjs
+
+
+also how would this work for installing it to someoines comp via curl usb tell me
+
+
+
+
+
+
+
+
+
 ////////Qs?
 
 why are there these env vats in the files dont have these sont mamke sense expalin and if I needed to add these env vars tell mechanics
