@@ -1,4 +1,4 @@
-
+<!-- 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -440,5 +440,250 @@
 
         document.addEventListener("DOMContentLoaded", loadDataFromBackend);
     </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Inventory">
+  <title>Local Inventory Tracker</title>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 16px; background: #f4f6f9; color: #333; display: flex; flex-direction: column; align-items: center; }
+    h1 { margin: 0 0 4px; font-size: 1.4rem; }
+    h2 { margin: 0 0 10px; font-size: 1rem; }
+    h3 { margin: 10px 0 6px; font-size: 0.9rem; }
+    .container { width: 100%; max-width: 600px; background: white; padding: 16px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.07); margin-bottom: 16px; }
+    .status-banner { width: 100%; max-width: 600px; padding: 8px 12px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 14px; text-align: center; background: #e2e8f0; }
+    input, select { width: 100%; padding: 10px; margin: 6px 0; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; }
+    button { background: #007bff; color: white; border: none; padding: 11px 14px; font-size: 0.95rem; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 6px; font-weight: 600; }
+    button:hover { background: #0056b3; }
+    button.green { background: #28a745; } button.green:hover { background: #218838; }
+    button.yellow { background: #ffc107; color: #212529; font-size: 1.1rem; padding: 14px; margin-top: 8px; }
+    button.yellow:hover { background: #e0a800; }
+    button.red { background: #dc3545; padding: 6px 10px; font-size: 0.8rem; width: auto; margin-top: 0; }
+    button.red:hover { background: #c82333; }
+    button.grey { background: #6c757d; margin-top: 0; } button.grey:hover { background: #545b62; }
+    .cam-row { display: flex; gap: 8px; margin-bottom: 8px; }
+    .cam-row button { flex: 1; font-size: 0.85rem; padding: 9px; }
+    .cam-active { background: #0056b3 !important; outline: 3px solid #ffc107; }
+    #reader { width: 100%; background: #fafafa; border: 2px dashed #ccc; border-radius: 6px; overflow: hidden; }
+    .hidden { display: none !important; }
+    .item-list { list-style: none; padding: 0; margin: 0; max-height: 220px; overflow-y: auto; }
+    .item-card { background: #f8f9fa; padding: 10px 12px; border-radius: 4px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e2e8f0; font-size: 0.9rem; }
+    .item-card small { color: #888; font-size: 0.75rem; display: block; }
+    .tag { display: inline-block; font-size: 0.7rem; padding: 2px 7px; border-radius: 10px; background: #e2e8f0; color: #555; margin-right: 4px; }
+  </style>
+</head>
+<body>
+  <h1>📦 Local Inventory Tracker</h1>
+  <div id="api-status" class="status-banner">Connecting...</div>
+
+  <!-- CREATE NEW ITEM -->
+  <div class="container" style="border-left:5px solid #28a745">
+    <h2>➕ Create New Item</h2>
+    <input type="text" id="new-name" placeholder="Item name (e.g. Blue Widget)">
+    <input type="text" id="new-barcode" placeholder="Barcode / SKU (e.g. 012345678901)">
+    <button class="green" onclick="createItem()">Add to Inventory</button>
+    <div id="create-msg" style="font-size:0.85rem;margin-top:6px;color:#28a745;"></div>
+  </div>
+
+  <!-- CAMERA SCANNER -->
+  <div class="container">
+    <h2>📷 Barcode Scanner</h2>
+    <div class="cam-row">
+      <button class="grey" id="btn-front" onclick="selectCamera('user')">🔬 Front</button>
+      <button class="grey cam-active" id="btn-back" onclick="selectCamera('environment')">📷 Back</button>
+    </div>
+    <button id="view-btn" onclick="toggleCamera()">Turn Camera ON</button>
+    <div id="reader-container" class="hidden">
+      <div id="reader"></div>
+      <button class="yellow" onclick="snapScan()">🎯 SNAP & SCAN NOW</button>
+    </div>
+  </div>
+
+  <!-- MANUAL LOG -->
+  <div class="container" style="border-left:5px solid #6c757d">
+    <h2>📋 Log from Inventory</h2>
+    <select id="quick-select"><option value="">-- select item --</option></select>
+    <button class="green" onclick="logFromSelect()">Log as Purchased</button>
+  </div>
+
+  <!-- INVENTORY LIST -->
+  <div class="container" style="border-left:5px solid #17a2b8">
+    <h2>🗂 Inventory</h2>
+    <input type="text" id="search" onkeyup="renderLists()" placeholder="Search by name or barcode...">
+    <ul id="inv-list" class="item-list"></ul>
+  </div>
+
+  <!-- PURCHASES -->
+  <div class="container" style="border-left:5px solid #6f42c1">
+    <h2>🛒 Purchase Log</h2>
+    <ul id="pur-list" class="item-list"></ul>
+  </div>
+
+<script>
+  const BASE = window.location.origin;
+  let inventory = [], purchases = [], currentCamera = 'environment', qr = null, streaming = false;
+
+  async function load() {
+    try {
+      const ping = await fetch(`${BASE}/api/ping`);
+      if (ping.ok) {
+        const d = await ping.json();
+        const el = document.getElementById('api-status');
+        el.innerHTML = `✅ Connected — <b>${d.ip}:${d.port}</b>`;
+        el.style.background = '#d4edda'; el.style.color = '#155724';
+      }
+      const inv = await fetch(`${BASE}/api/inventory`);
+      if (inv.ok) inventory = await inv.json();
+      const pur = await fetch(`${BASE}/api/purchases`);
+      if (pur.ok) purchases = await pur.json();
+      renderLists();
+    } catch(e) {
+      const el = document.getElementById('api-status');
+      el.innerText = '❌ Connection failed'; el.style.background = '#f8d7da'; el.style.color = '#721c24';
+    }
+  }
+
+  async function createItem() {
+    const name = document.getElementById('new-name').value.trim();
+    const barcode = document.getElementById('new-barcode').value.trim();
+    const msg = document.getElementById('create-msg');
+    if (!name || !barcode) { msg.style.color='#dc3545'; msg.innerText='Name and barcode required.'; return; }
+    try {
+      const r = await fetch(`${BASE}/api/items/create`, {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ name, barcode })
+      });
+      const d = await r.json();
+      if (r.ok) {
+        msg.style.color='#28a745'; msg.innerText=`✅ "${d.item.name}" added!`;
+        document.getElementById('new-name').value = '';
+        document.getElementById('new-barcode').value = '';
+        await load();
+      } else {
+        msg.style.color='#dc3545'; msg.innerText=`⚠️ ${d.error}`;
+      }
+    } catch(e) { document.getElementById('create-msg').innerText='Error: '+e.message; }
+  }
+
+  async function selectCamera(mode) {
+    if (currentCamera === mode) return;
+    currentCamera = mode;
+    document.getElementById('btn-front').classList.toggle('cam-active', mode==='user');
+    document.getElementById('btn-back').classList.toggle('cam-active', mode==='environment');
+    if (streaming) { await stopCamera(); startCamera(); }
+  }
+
+  function toggleCamera() { streaming ? stopCamera() : startCamera(); }
+
+  function startCamera() {
+    document.getElementById('reader-container').classList.remove('hidden');
+    document.getElementById('view-btn').innerText = 'Turn Camera OFF';
+    document.getElementById('view-btn').style.background = '#6c757d';
+    streaming = true;
+    qr = new Html5Qrcode('reader');
+    qr.start({ facingMode: currentCamera }, { fps: 20, qrbox: {width:260,height:160} }, ()=>{}, ()=>{})
+      .catch(e => { console.error(e); stopCamera(); });
+  }
+
+  async function stopCamera() {
+    try { if (qr?.isScanning) await qr.stop(); } catch(e) {}
+    qr = null; streaming = false;
+    document.getElementById('reader-container').classList.add('hidden');
+    document.getElementById('view-btn').innerText = 'Turn Camera ON';
+    document.getElementById('view-btn').style.background = '#007bff';
+  }
+
+  async function snapScan() {
+    if (!qr?.isScanning) { alert('Start camera first'); return; }
+    const btn = document.querySelector('.yellow');
+    btn.innerText = '⏳ Scanning...';
+    const vid = document.querySelector('#reader video');
+    if (!vid) { btn.innerText = '🎯 SNAP & SCAN NOW'; return; }
+    try {
+      const code = await qr.scanFile(vid);
+      btn.innerText = `✅ ${code}`; btn.style.background = '#28a745';
+      const match = inventory.find(i => i.barcode === code);
+      const name = match ? match.name : `Item ${code}`;
+      await fetch(`${BASE}/api/scans`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ barcode: code, camera: currentCamera==='environment'?'back':'front', device: navigator.userAgent }) });
+      await fetch(`${BASE}/api/purchases`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ barcode: code, name }) });
+      await load();
+    } catch(e) {
+      btn.innerText = '❌ No barcode — try again'; btn.style.background = '#dc3545';
+    } finally {
+      setTimeout(() => { btn.innerText='🎯 SNAP & SCAN NOW'; btn.style.background='#ffc107'; }, 2000);
+    }
+  }
+
+  async function logFromSelect() {
+    const id = document.getElementById('quick-select').value;
+    if (!id) return;
+    const item = inventory.find(i => i.id === id);
+    if (!item) return;
+    await fetch(`${BASE}/api/purchases`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ barcode: item.barcode, name: item.name }) });
+    await load();
+  }
+
+  async function deleteItem(id, type) {
+    const ep = type==='inventory' ? `/api/inventory/${id}` : `/api/purchases/${id}`;
+    await fetch(`${BASE}${ep}`, { method: 'DELETE' });
+    await load();
+  }
+
+  function renderLists() {
+    const q = document.getElementById('search').value.toLowerCase();
+    const invEl = document.getElementById('inv-list');
+    const purEl = document.getElementById('pur-list');
+    const sel = document.getElementById('quick-select');
+
+    const fi = inventory.filter(i => i.name.toLowerCase().includes(q) || i.barcode.includes(q));
+    invEl.innerHTML = fi.length === 0
+      ? `<li style="color:#888;padding:6px;font-size:0.85rem">No items found.</li>`
+      : fi.map(i => `<li class="item-card"><div><strong>${i.name}</strong><small>Barcode: ${i.barcode}</small></div><button class="red" onclick="deleteItem('${i.id}','inventory')">Remove</button></li>`).join('');
+
+    const fp = purchases.filter(i => i.name.toLowerCase().includes(q) || i.barcode.includes(q));
+    purEl.innerHTML = fp.length === 0
+      ? `<li style="color:#888;padding:6px;font-size:0.85rem">No purchases logged.</li>`
+      : fp.map(p => `<li class="item-card" style="border-left:4px solid #6f42c1"><div><strong>${p.name}</strong><small>${new Date(p.loggedAt).toLocaleTimeString()} — ${p.barcode}</small></div><button class="red" onclick="deleteItem('${p.id}','purchased')">Delete</button></li>`).join('');
+
+    const cur = sel.value;
+    sel.innerHTML = inventory.length === 0
+      ? `<option value="">-- No items in inventory --</option>`
+      : inventory.map(i => `<option value="${i.id}">${i.name} (${i.barcode})</option>`).join('');
+    if (cur) sel.value = cur;
+  }
+
+  document.addEventListener('DOMContentLoaded', load);
+</script>
 </body>
 </html>

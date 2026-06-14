@@ -36,9 +36,11 @@ export function startInventoryServer(resourcesPath) {
   const expressApp = express();
 
   // Cert path works in both dev and packaged
+  // Works in dev (src/server/) and built (out/main/ → back to project root)
+  const projectRoot = process.cwd();
   const certsDir = resourcesPath
     ? path.join(resourcesPath, 'app.asar.unpacked', 'src', 'server', 'certs')
-    : path.join(__dirname, 'certs');
+    : path.join(projectRoot, 'src', 'server', 'certs');
 
   const certPath = path.join(certsDir, 'cert.pem');
   const keyPath  = path.join(certsDir, 'key.pem');
@@ -71,7 +73,7 @@ export function startInventoryServer(resourcesPath) {
   expressApp.get('/', (req, res) => {
     const frontendPath = resourcesPath
       ? path.join(resourcesPath, 'app.asar.unpacked', 'src', 'server', 'frontend', 'index.html')
-      : path.join(__dirname, 'frontend', 'index.html');
+      : path.join(projectRoot, 'src', 'server', 'frontend', 'index.html');
 
     if (fs.existsSync(frontendPath)) {
       res.sendFile(frontendPath);
@@ -86,6 +88,18 @@ export function startInventoryServer(resourcesPath) {
   const localIP = getLocalIP();
   expressApp.get('/api/ping', (req, res) => {
     res.json({ status: 'online', message: 'HTTPS confirmed — camera enabled', ip: localIP, port: PORT });
+  });
+
+  // CREATE ITEM manually by name + barcode (typed in from frontend)
+  expressApp.post('/api/items/create', (req, res) => {
+    const { barcode, name } = req.body || {};
+    if (!barcode || !name) return res.status(400).json({ error: 'barcode and name required' });
+    const existing = db.inventory.find(i => i.barcode === barcode);
+    if (existing) return res.status(409).json({ error: 'item with that barcode already exists', item: existing });
+    const item = { id: `inv_${Date.now()}`, barcode, name, createdAt: new Date().toISOString() };
+    db.inventory.unshift(item);
+    printDB();
+    res.status(201).json({ action: 'created', item });
   });
 
   // INVENTORY
@@ -115,9 +129,14 @@ export function startInventoryServer(resourcesPath) {
     res.json({ status: 'deleted' });
   });
 
-  // PURCHASES
+ 
   expressApp.get('/api/purchases', (req, res) => res.json(db.purchases));
 
+
+
+   // PURCHASES
+  ////////HOW WOULD i GET  function like this to send the contetnts of a puches to card scanner of some kind to trancfer money
+ 
   expressApp.post('/api/purchases', (req, res) => {
     const { barcode, name } = req.body || {};
     if (!barcode || !name) return res.status(400).json({ error: 'barcode and name required' });
