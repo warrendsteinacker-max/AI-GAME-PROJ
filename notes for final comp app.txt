@@ -1,0 +1,23 @@
+
+
+
+the first thing it will do it will have a  option to create data frames via pandsas nodejs libary to store info in given front end calls
+
+it will have a boiler plate prompt that it will plug this info into to give to ai to create code for it
+
+
+
+second thing it will do have a option to create a server to store this info and mode it and other things and will also have the option to explain routes that will be created given that third option is going to be done
+
+it will have a boiler plate prompt that it will plug this info into to give to ai to create code for it that is also baised on the context of of the first thiing
+
+third thing it will do it will have the option to serve a front end for users to connect to via you hotspot given a front end that you want to be shown
+
+it will have a boiler plate prompt that it will plug this info into to give to ai to create code for it that is also baised on the context of of the first and second thing
+
+
+there will be a option for production mode and testing mode testing mode you can modifue these three steps to see changes that you want and make them via npm run dev or somthen
+
+
+production mode is for when you are don this is when npm run build happens and then you get the exe for your desktop app the app
+
