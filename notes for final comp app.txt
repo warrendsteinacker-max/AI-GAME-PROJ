@@ -21,3 +21,30 @@ there will be a option for production mode and testing mode testing mode you can
 
 production mode is for when you are don this is when npm run build happens and then you get the exe for your desktop app the app
 
+
+
+
+
+comp app shoulf make a local newot=rk on some ones comp via the app that pwople can connect to and get front end  with server
+
+
+the ui the starting install or should say npm create ir gut clone should be the bioler plate for creating the uis for this app and assinfninf them servers to acompufh tasks via calls to the front to back 
+
+you should be able to create more then one ui amd server that will run acomplushed through each ui listenting to diffrent ports loacley on the comp 
+
+when creating a server for a uican decide to specife if you want the server to use data frms via a node.js liobary  thus it is used just for local processes on the computer or you can specifi if the server is a external api for the comp to communicate to or use to communicate to other things that are not just on the computer this is is not used for just local processes and it can have a connection to a non local way to store data like mongo db data base or it is used ti cimmunicate to a apo out there ao the internet 
+servers can ether be just used for local proceses on the comp or not just tat nit non loocal proceses 
+
+so for the boiler plate ui there wull be a part fir specifing the connection of front ends to there servers and there will also be a section for specifing if the server us just goung to be used for local proceses ir nin local poriceses as well there will also be a part for establishing the datfrmes to store data in for servers that use the local process of createing data frams  to store data cia a prompt to pluf into ai or if the server uses a non local methode this section will be used to maniplate the prompt to create server
+
+
+note all the info that is picked from these sections will maipulate the propmts to be sent to ai to create fronats and backs to create uis that can be visted on the netwok they will essentaily effects the two prompts front and back for each server and front end to be sent to ai to create both of em 
+
+
+also there should be built in tools in this boiler plate ui one kind if like post man but it compares all the fetches or aaxioses in the front and sees if each one at leasts as one seuccesfull call to one orute to the server and this inticates that it is good else it is not it also sees if the front end and back end funcs that contain these are good no erroes
+
+if a error happens then it lofs what function in front or back made this happen and makes another prompt for front or back to fix this error or creates two new ones
+
+also theservers should be only on one file but front ends can have more then ome file but rather be created through multiple files including dirs front ends should be in js form sense they eil be created to be displayed in a react js enviroment servers should be in node js
+
+also the boiler plate to create this ui needs to have pre installed things to maipulate code file dirs in this starting proj from interacting with the ui started via npm run in other words from the user of this comp app running in non production vuia the commad=nd they dhould be able to edut the cide vua unnteractunf wuth the frint end
