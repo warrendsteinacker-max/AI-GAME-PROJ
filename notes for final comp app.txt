@@ -47,4 +47,8 @@ if a error happens then it lofs what function in front or back made this happen 
 
 also theservers should be only on one file but front ends can have more then ome file but rather be created through multiple files including dirs front ends should be in js form sense they eil be created to be displayed in a react js enviroment servers should be in node js
 
-also the boiler plate to create this ui needs to have pre installed things to maipulate code file dirs in this starting proj from interacting with the ui started via npm run in other words from the user of this comp app running in non production vuia the commad=nd they dhould be able to edut the cide vua unnteractunf wuth the frint end
+also the boiler plate to create this ui needs to have pre installed things to maipulate code file dirs in this starting proj from interacting with the ui started via npm run in other words from the user of this comp app running in non production vuia the commad=nd they dhould be able to edut the cide vua unnteractunf wuth the frint end       
+
+
+
+configuring payments through pay pal 
