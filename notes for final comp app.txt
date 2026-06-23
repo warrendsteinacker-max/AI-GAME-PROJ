@@ -52,3 +52,20 @@ also the boiler plate to create this ui needs to have pre installed things to ma
 
 
 configuring payments through pay pal 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+to create hour traking app remeber to make book keeping app that takes in transaction from a configed app on bank provider like paypal and then has a carts of accounts to catagorizes these transactions make rules and any otherthings quike books can do  
